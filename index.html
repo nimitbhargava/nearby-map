@@ -14,9 +14,11 @@
 </nav>
 <div class="row" style="height:100%">
     <div class="col-sm-3">
-        <div class="container places">
+        <div class="container">
             <input type="text" placeholder="Filter..">
-            <ul class="places-list"></ul>
+            <ul data-bind="foreach: markers">
+                <li data-bind="text: title"></li>
+            </ul>
         </div>
     </div>
     <div class="col-sm-9 p-0">

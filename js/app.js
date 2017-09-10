@@ -37,6 +37,8 @@ var places = [
 ];
 
 var map;
+var markers = [];
+
 function initMap() {
     var myLatLng = {lat: -34.397, lng: 150.644};
     map = new google.maps.Map(document.getElementById('map'), {
@@ -77,7 +79,6 @@ var ViewModel = function(){
 
     var mapBounds = new google.maps.LatLngBounds();
 
-    var markers = [];
     var marker;
 
     for (var k = 0; k < places.length; k++) {
