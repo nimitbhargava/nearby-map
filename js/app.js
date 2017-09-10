@@ -39,10 +39,16 @@ var places = [
 var map;
 function initMap() {
     var myLatLng = {lat: -34.397, lng: 150.644};
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 8
     });
+
+    ko.applyBindings(new ViewModel());
+}
+
+var ViewModel = function(){
+    var self = this;
 
     var contentString = '<div id="content">' +
         '<div id="siteNotice">' +
@@ -92,6 +98,4 @@ function initMap() {
     }
 
     map.fitBounds(mapBounds);
-
-
-}
+};
