@@ -49,7 +49,7 @@ function initMap() {
     ko.applyBindings(new ViewModel());
 }
 
-var ViewModel = function(){
+var ViewModel = function () {
     var self = this;
 
     var contentString = '<div id="content">' +
@@ -93,13 +93,29 @@ var ViewModel = function(){
         mapBounds.extend(markers[k].position);
         marker.addListener('click', (function (marker) {
             return function () {
-                infowindow.open(map, marker);
+                openInfoWindowAndAnimateMarker(marker);
             };
         })(marker));
     }
 
-    this.displayMarker = function(place) {
-        infowindow.open(map, place);
+    this.displayMarker = function (place) {
+        openInfoWindowAndAnimateMarker(place);
+    }
+
+    function openInfoWindowAndAnimateMarker(marker) {
+        openInfoWindow(marker);
+        annimateMarker(marker);
+    }
+
+    function annimateMarker(marker) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+            marker.setAnimation(null);
+        }, 1400);
+    }
+
+    function openInfoWindow(marker) {
+        infowindow.open(map, marker);
     }
 
     map.fitBounds(mapBounds);
