@@ -89,30 +89,7 @@ function initMap() {
 var ViewModel = function () {
     var self = this;
 
-    var contentString = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-        '<div id="bodyContent">' +
-        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-        'sandstone rock formation in the southern part of the ' +
-        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-        'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-        'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-        'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-        'Aboriginal people of the area. It has many springs, waterholes, ' +
-        'rock caves and ancient paintings. Uluru is listed as a World ' +
-        'Heritage Site.</p>' +
-        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-        'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-        '(last visited June 22, 2009).</p>' +
-        '</div>' +
-        '</div>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
+    var infowindow = new google.maps.InfoWindow();
 
     var mapBounds = new google.maps.LatLngBounds();
 
@@ -163,7 +140,7 @@ var ViewModel = function () {
             '</div>';
         infowindow.setContent(html);
         infowindow.open(map, marker);
-        self.populateInfoWindow(marker, infowindow);
+        self.populateInfoWindow(marker);
     }
 
     function movingMapPosition(marker) {
@@ -189,28 +166,19 @@ var ViewModel = function () {
         return result;
     }, this);
 
-    this.populateInfoWindow = function (marker, infowindow) {
-        // Check to make sure the infowindow is
-        // not already opened on this marker.
-        if (infowindow.marker != marker) {
-            infowindow.marker = marker;
+    this.populateInfoWindow = function (marker) {
+        var requestURL = 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + marker.id.res_id;
 
-            var requestURL = 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + marker.id.res_id;
-
-            $.ajax({
-                type: 'GET',
-                url: requestURL,
-                headers: {
-                    "user-key": "a9324833b3b60340f0ceee6edd70ac99"
-                }
-            }).done(function (data) {
-                $('#bodyContent p').text("Rating is: " + data.user_rating.aggregate_rating + " stars");
-            }).fail(function () {
-                $('#bodyContent p').text("Failed to fetch rating from Zomato API");
-            });
-        }
+        $.ajax({
+            type: 'GET',
+            url: requestURL,
+            headers: {"user-key": "a9324833b3b60340f0ceee6edd70ac99"}
+        }).done(function (data) {
+            $('#bodyContent p').text("Rating is: " + data.user_rating.aggregate_rating + " stars");
+        }).fail(function () {
+            $('#bodyContent p').text("Failed to fetch rating from Zomato API");
+        });
     };
-
     map.fitBounds(mapBounds);
 };
 
