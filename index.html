@@ -15,9 +15,11 @@
 <div class="row" style="height:100%">
     <div class="col-sm-3">
         <div class="container">
-            <input type="text" placeholder="Filter..">
-            <ul data-bind="foreach: markers">
-                <li data-bind="text: title, click: $parent.displayMarker"></li>
+                <div class="input-group pb-2">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                </div>
+            <ul class="list-group" data-bind="foreach: markers">
+                <li class="list-group-item list-group-item-action" data-bind="text: title, click: $parent.displayMarker"></li>
             </ul>
         </div>
     </div>
