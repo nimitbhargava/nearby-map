@@ -16,9 +16,9 @@
     <div class="col-sm-3">
         <div class="container">
                 <div class="input-group pb-2">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" class="form-control" placeholder="Search for..." data-bind="textInput: userInput, event: {keyup: filterPlaces}">
                 </div>
-            <ul class="list-group" data-bind="foreach: markers">
+            <ul class="list-group" data-bind="foreach: filterPlaces">
                 <li class="list-group-item list-group-item-action" data-bind="text: title, click: $parent.displayMarker"></li>
             </ul>
         </div>

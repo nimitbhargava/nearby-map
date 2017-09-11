@@ -66,11 +66,11 @@ var places = [
 
 var map;
 var markers = [];
+var myLatLng = {position: {lat: 12.975140, lng: 77.604109}};
 
 function initMap() {
-    var myLatLng = {lat: 12.975140, lng: 77.604109};
     map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
+        center: myLatLng.position,
         zoom: 8
     });
 
@@ -107,7 +107,7 @@ var ViewModel = function () {
 
     var mapBounds = new google.maps.LatLngBounds();
 
-    var marker;
+    var marker = [];
 
     for (var k = 0; k < places.length; k++) {
         marker = new google.maps.Marker({
@@ -160,6 +160,24 @@ var ViewModel = function () {
         mapBounds.extend(marker.position);
         map.fitBounds(mapBounds);
     }
+
+    self.userInput = ko.observable('');
+    self.filterPlaces = ko.computed(function () {
+        movingMapPosition(myLatLng);
+        infowindow.close(map);
+        var result = [];
+        var query = self.userInput().toLowerCase();
+        for (var k = 0; k < markers.length; k++) {
+            var place = markers[k];
+            if (place.title.toLowerCase().indexOf(query) > -1 || (query === '')) {
+                result.push(place);
+                markers[k].setVisible(true);
+            } else {
+                markers[k].setVisible(false);
+            }
+        }
+        return result;
+    }, this);
 
     map.fitBounds(mapBounds);
 };
