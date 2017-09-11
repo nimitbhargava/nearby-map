@@ -1,3 +1,4 @@
+//Collection of places
 var places = [
     {
         name: "Nosh & Tipple",
@@ -75,11 +76,13 @@ var places = [
 
 var map;
 var markers = [];
-var myLatLng = {position: {lat: 12.975140, lng: 77.604109}};
+// Initial Map Position
+var initialMapPosition = {position: {lat: 12.975140, lng: 77.604109}};
 
+// Called by Google Maps
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng.position,
+        center: initialMapPosition.position,
         zoom: 8
     });
 
@@ -90,9 +93,7 @@ var ViewModel = function () {
     var self = this;
 
     var infowindow = new google.maps.InfoWindow();
-
     var mapBounds = new google.maps.LatLngBounds();
-
     var marker = [];
 
     for (var k = 0; k < places.length; k++) {
@@ -122,6 +123,8 @@ var ViewModel = function () {
         movingMapPosition(marker);
     }
 
+    // Set animation for the marker
+    // Marker bounce for around 1.4 seconds when clicked / its respective location is clicked form the list
     function annimateMarker(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
@@ -149,11 +152,15 @@ var ViewModel = function () {
     }
 
     self.userInput = ko.observable('');
+
+    // The filterPlaces value is used to show the Places list
     self.filterPlaces = ko.computed(function () {
-        movingMapPosition(myLatLng);
+        movingMapPosition(initialMapPosition);
         infowindow.close(map);
         var result = [];
         var query = self.userInput().toLowerCase();
+
+        // Setting all the filtered locations' marker to be visible
         for (var k = 0; k < markers.length; k++) {
             var place = markers[k];
             if (place.title.toLowerCase().indexOf(query) > -1 || (query === '')) {
@@ -167,11 +174,10 @@ var ViewModel = function () {
     }, this);
 
     this.populateInfoWindow = function (marker) {
-        var requestURL = 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + marker.id.res_id;
-
+        var url = 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + marker.id.res_id;
         $.ajax({
             type: 'GET',
-            url: requestURL,
+            url: url,
             headers: {"user-key": "a9324833b3b60340f0ceee6edd70ac99"}
         }).done(function (data) {
             $('#bodyContent p').text("Rating is: " + data.user_rating.aggregate_rating + " stars");
