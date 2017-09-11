@@ -33,6 +33,41 @@ var places = [
             lat: -30.397,
             lng: 150.644
         }
+    },
+    {
+        name: "Test6",
+        location: {
+            lat: -32.397,
+            lng: 149.644
+        }
+    },
+    {
+        name: "Test7",
+        location: {
+            lat: -32.397,
+            lng: 148.644
+        }
+    },
+    {
+        name: "Test8",
+        location: {
+            lat: -32.397,
+            lng: 147.644
+        }
+    },
+    {
+        name: "Test9",
+        location: {
+            lat: -32.397,
+            lng: 146.644
+        }
+    },
+    {
+        name: "Test10",
+        location: {
+            lat: -32.397,
+            lng: 145.644
+        }
     }
 ];
 
