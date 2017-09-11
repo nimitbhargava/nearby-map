@@ -213,3 +213,7 @@ var ViewModel = function () {
 
     map.fitBounds(mapBounds);
 };
+
+function handleMapError() {
+    $('#map').html("<p>Google Maps can not be loaded at this time.</p>")
+}
