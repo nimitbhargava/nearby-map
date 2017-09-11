@@ -111,7 +111,7 @@ var ViewModel = function () {
 
     this.displayMarker = function () {
         openInfoWindowAndAnimateMarker(this);
-    }
+    };
 
     function openInfoWindowAndAnimateMarker(marker) {
         openInfoWindow(marker);
