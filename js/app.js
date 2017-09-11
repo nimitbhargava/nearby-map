@@ -133,6 +133,7 @@ var ViewModel = function () {
     function openInfoWindowAndAnimateMarker(marker) {
         openInfoWindow(marker);
         annimateMarker(marker);
+        movingMapPosition(marker);
     }
 
     function annimateMarker(marker) {
@@ -153,6 +154,11 @@ var ViewModel = function () {
             '</div>';
         infowindow.setContent(html);
         infowindow.open(map, marker);
+    }
+
+    function movingMapPosition(marker) {
+        mapBounds.extend(marker.position);
+        map.fitBounds(mapBounds);
     }
 
     map.fitBounds(mapBounds);
