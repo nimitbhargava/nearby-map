@@ -1,66 +1,75 @@
 var places = [
     {
-        name: "Lakeview Milk Bar",
+        name: "Nosh & Tipple",
         location: {
-            lat: 12.976058492482377,
-            lng: 77.60379990297832
-        }
+            lat: 12.9750796,
+            lng: 77.6045972
+        },
+        res_id: 18450886
     },
     {
         name: "Hoppipola - All Day Bar & Bonhomie",
         location: {
             lat: 12.97516841365876,
             lng: 77.60348809031643
-        }
+        },
+        res_id: 51441
     },
     {
         name: "Tinga Tinga Bar & Cafe",
         location: {
             lat: 12.976285727568682,
             lng: 77.60261212295542
-        }
+        },
+        res_id: 18208388
     },
     {
         name: "Black Dog Bar",
         location: {
             lat: 12.974562822535832,
             lng: 77.6005377812076
-        }
+        },
+        res_id: 53059
     },
     {
         name: "Page 3 Bar And Restaurant",
         location: {
             lat: 12.97101714366441,
             lng: 77.60594656402046
-        }
+        },
+        res_id: 52700
     },
     {
         name: "Bang Rooftop Bar",
         location: {
             lat: 12.967806789185715,
             lng: 77.60178556791423
-        }
+        },
+        res_id: 50975
     },
     {
         name: "The Glass House - Deli Bistro Bar",
         location: {
             lat: 12.970084081682407,
             lng: 77.59744343445422
-        }
+        },
+        res_id: 18224650
     },
     {
         name: "Brahmins Coffee Bar",
         location: {
             lat: 12.953988222576719,
             lng: 77.56884098052979
-        }
+        },
+        res_id: 18432970
     },
     {
         name: "Coco Grove Beer Cafe & Resto Bar",
         location: {
             lat: 12.975093778681511,
             lng: 77.60461465156055
-        }
+        },
+        res_id: 57438
     }
 ];
 
@@ -149,11 +158,12 @@ var ViewModel = function () {
             '</div>' +
             '<h1 id="firstHeading" class="firstHeading">' + marker.title + '</h1>' +
             '<div id="bodyContent">' +
-            '<p>Some <b>important<b> body.</p>' +
+            '<p>Fetching rating...</p>' +
             '</div>' +
             '</div>';
         infowindow.setContent(html);
         infowindow.open(map, marker);
+        self.populateInfoWindow(marker, infowindow);
     }
 
     function movingMapPosition(marker) {
@@ -178,6 +188,28 @@ var ViewModel = function () {
         }
         return result;
     }, this);
+
+    this.populateInfoWindow = function (marker, infowindow) {
+        // Check to make sure the infowindow is
+        // not already opened on this marker.
+        if (infowindow.marker != marker) {
+            infowindow.marker = marker;
+
+            var requestURL = 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + marker.id.res_id;
+
+            $.ajax({
+                type: 'GET',
+                url: requestURL,
+                headers: {
+                    "user-key": "a9324833b3b60340f0ceee6edd70ac99"
+                }
+            }).done(function (data) {
+                $('#bodyContent p').text("Rating is: " + data.user_rating.aggregate_rating + " stars");
+            }).fail(function () {
+                $('#bodyContent p').text("Failed to fetch rating from Zomato API");
+            });
+        }
+    };
 
     map.fitBounds(mapBounds);
 };
