@@ -1,72 +1,65 @@
 var places = [
     {
-        name: "Test1",
+        name: "Lakeview Milk Bar",
         location: {
-            lat: -34.397,
-            lng: 150.644
+            lat: 12.976058492482377,
+            lng: 77.60379990297832
         }
     },
     {
-        name: "Test2",
+        name: "Hoppipola - All Day Bar & Bonhomie",
         location: {
-            lat: -33.397,
-            lng: 150.644
+            lat: 12.97516841365876,
+            lng: 77.60348809031643
         }
     },
     {
-        name: "Test3",
+        name: "Tinga Tinga Bar & Cafe",
         location: {
-            lat: -32.397,
-            lng: 150.644
+            lat: 12.976285727568682,
+            lng: 77.60261212295542
         }
     },
     {
-        name: "Test4",
+        name: "Black Dog Bar",
         location: {
-            lat: -31.397,
-            lng: 150.644
+            lat: 12.974562822535832,
+            lng: 77.6005377812076
         }
     },
     {
-        name: "Test5",
+        name: "Page 3 Bar And Restaurant",
         location: {
-            lat: -30.397,
-            lng: 150.644
+            lat: 12.97101714366441,
+            lng: 77.60594656402046
         }
     },
     {
-        name: "Test6",
+        name: "Bang Rooftop Bar",
         location: {
-            lat: -32.397,
-            lng: 149.644
+            lat: 12.967806789185715,
+            lng: 77.60178556791423
         }
     },
     {
-        name: "Test7",
+        name: "The Glass House - Deli Bistro Bar",
         location: {
-            lat: -32.397,
-            lng: 148.644
+            lat: 12.970084081682407,
+            lng: 77.59744343445422
         }
     },
     {
-        name: "Test8",
+        name: "Brahmins Coffee Bar",
         location: {
-            lat: -32.397,
-            lng: 147.644
+            lat: 12.953988222576719,
+            lng: 77.56884098052979
         }
     },
     {
-        name: "Test9",
+        name: "Coco Grove Beer Cafe & Resto Bar",
         location: {
-            lat: -32.397,
-            lng: 146.644
-        }
-    },
-    {
-        name: "Test10",
-        location: {
-            lat: -32.397,
-            lng: 145.644
+            lat: 12.975093778681511,
+            lng: 77.60461465156055
         }
     }
 ];
@@ -75,7 +68,7 @@ var map;
 var markers = [];
 
 function initMap() {
-    var myLatLng = {lat: -34.397, lng: 150.644};
+    var myLatLng = {lat: 12.975140, lng: 77.604109};
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 8
