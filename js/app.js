@@ -106,15 +106,11 @@ var ViewModel = function () {
         });
         markers.push(marker);
         mapBounds.extend(markers[k].position);
-        marker.addListener('click', (function (marker) {
-            return function () {
-                openInfoWindowAndAnimateMarker(marker);
-            };
-        })(marker));
+        marker.addListener('click', self.displayMarker);
     }
 
-    this.displayMarker = function (place) {
-        openInfoWindowAndAnimateMarker(place);
+    this.displayMarker = function () {
+        openInfoWindowAndAnimateMarker(this);
     }
 
     function openInfoWindowAndAnimateMarker(marker) {
@@ -189,5 +185,5 @@ var ViewModel = function () {
 };
 
 function handleMapError() {
-    $('#map').html("<p>Google Maps can not be loaded at this time.</p>")
+    $('#map').html("<p>Google Maps can not be loaded at this time.</p>");
 }
