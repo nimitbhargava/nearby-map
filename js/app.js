@@ -150,6 +150,15 @@ var ViewModel = function () {
     }
 
     function openInfoWindow(marker) {
+        var html = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">' + marker.title + '</h1>' +
+            '<div id="bodyContent">' +
+            '<p>Some <b>important<b> body.</p>' +
+            '</div>' +
+            '</div>';
+        infowindow.setContent(html);
         infowindow.open(map, marker);
     }
 
