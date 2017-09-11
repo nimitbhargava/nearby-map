@@ -98,5 +98,9 @@ var ViewModel = function(){
         })(marker));
     }
 
+    this.displayMarker = function(place) {
+        infowindow.open(map, place);
+    }
+
     map.fitBounds(mapBounds);
 };
