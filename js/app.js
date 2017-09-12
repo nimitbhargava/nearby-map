@@ -106,7 +106,12 @@ var ViewModel = function () {
         });
         markers.push(marker);
         mapBounds.extend(markers[k].position);
-        marker.addListener('click', self.displayMarker);
+        marker.addListener('click', displayInfo);
+    }
+
+    // Bug - if displayMarker is used to call to build the info window, then I get the error - please suggest a better way to fix this
+    function displayInfo() {
+        openInfoWindowAndAnimateMarker(this);
     }
 
     this.displayMarker = function () {
