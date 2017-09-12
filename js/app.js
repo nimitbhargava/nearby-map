@@ -194,6 +194,10 @@ var ViewModel = function () {
     }
 
     map.fitBounds(mapBounds);
+
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(mapBounds); // `bounds` is a `LatLngBounds` object
+    });
 };
 
 function handleMapError() {
