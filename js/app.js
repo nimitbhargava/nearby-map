@@ -203,3 +203,9 @@ var ViewModel = function () {
 function handleMapError() {
     $('#map').html("<p>Google Maps can not be loaded at this time.</p>");
 }
+
+$('.sidebar-toggle').click(function(){
+    $('.sidebar').toggleClass('d-none d-sm-block');
+    var updatedToggleBtnText = $('.sidebar-toggle').text() === "Collapse" ? "Explore" : "Collapse";
+    $('.sidebar-toggle').text(updatedToggleBtnText);
+});
