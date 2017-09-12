@@ -134,14 +134,7 @@ var ViewModel = function () {
     }
 
     function openInfoWindow(marker) {
-        var html = '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h1 id="firstHeading" class="firstHeading">' + marker.title + '</h1>' +
-            '<div id="bodyContent">' +
-            '<p>Fetching rating...</p>' +
-            '</div>' +
-            '</div>';
+        var html = contentForInfoWindow(marker, 'Fetching rating... ');
         infowindow.setContent(html);
         infowindow.open(map, marker);
         self.populateInfoWindow(marker);
@@ -181,11 +174,25 @@ var ViewModel = function () {
             url: url,
             headers: {"user-key": "a9324833b3b60340f0ceee6edd70ac99"}
         }).done(function (data) {
-            $('#bodyContent p').text("Rating is: " + data.user_rating.aggregate_rating + " stars");
+            var html = contentForInfoWindow(marker, 'Rating is: ' + data.user_rating.aggregate_rating + ' stars');
+            infowindow.setContent(html);
         }).fail(function () {
-            $('#bodyContent p').text("Failed to fetch rating from Zomato API");
+            var html = contentForInfoWindow(marker, 'Failed to fetch rating from Zomato API');
+            infowindow.setContent(html);
         });
     };
+
+    function contentForInfoWindow(marker, body) {
+        return '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">' + marker.title + '</h1>' +
+            '<div id="bodyContent">' +
+            '<p>' + body + '</p>' +
+            '</div>' +
+            '</div>';
+    }
+
     map.fitBounds(mapBounds);
 };
 
